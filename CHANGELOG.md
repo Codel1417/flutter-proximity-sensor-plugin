@@ -1,3 +1,6 @@
+## 1.3.7
+-   add isSupported() method
+
 ## 1.3.6
 -   android only feature 
    

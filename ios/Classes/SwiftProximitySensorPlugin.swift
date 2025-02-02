@@ -32,7 +32,6 @@ public class SwiftProximityStreamHandler : NSObject,FlutterStreamHandler
     public func onCancel(withArguments arguments: Any?) -> FlutterError? {
         notiCenter.removeObserver(self)
         device.isProximityMonitoringEnabled = false
-        
         return nil
     }
 }
@@ -54,8 +53,24 @@ public class SwiftProximitySensorPlugin: NSObject, FlutterPlugin
         registrar.addMethodCallDelegate(instance, channel: methodChannel)
     }
 
-  public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-    result(FlutterMethodNotImplemented)
-  }
+    public func handle(call: FlutterMethodCall, result: @escaping FlutterResult) {
+        guard call.method == "isSupported" else {
+            result(FlutterMethodNotImplemented)
+            return
+        }
+        if call.method == "isSupported"{
+            // On IOS, to detect if the proximity sensor is supported, you try to enable it.
+            // the value will stay false if it is unsupported. Example: IPads
+            if (device.isProximityMonitoringEnabled){
+                result(true)
+            } else {
+                device.isProximityMonitoringEnabled = true
+                result(device.isProximityMonitoringEnabled)
+                if (device.isProximityMonitoringEnabled) {
+                    device.isProximityMonitoringEnabled = false
+                }
+            }
+        }
+    }
 }
 

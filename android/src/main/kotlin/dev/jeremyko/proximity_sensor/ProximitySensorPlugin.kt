@@ -37,6 +37,9 @@ class ProximitySensorPlugin: FlutterPlugin, MethodCallHandler  {
         result.success(null);
       }
     }
+    else if (call.method == "isSupported"){
+      result.success(streamHandler.isSupported())
+    }
   }
 }
 
