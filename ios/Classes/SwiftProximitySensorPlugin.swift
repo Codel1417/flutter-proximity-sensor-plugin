@@ -60,7 +60,8 @@ public class SwiftProximitySensorPlugin: NSObject, FlutterPlugin
         }
         if call.method == "isSupported"{
             // On IOS, to detect if the proximity sensor is supported, you try to enable it.
-            // the value will stay false if it is unsupported. Example: IPads
+            // the value will stay false if it is unsupported. Example:
+            let device =  UIDevice.current
             if (device.isProximityMonitoringEnabled){
                 result(true)
             } else {
