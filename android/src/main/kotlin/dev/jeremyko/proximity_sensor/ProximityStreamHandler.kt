@@ -75,7 +75,7 @@ class ProximityStreamHandler(
             wakeLock!!.release()
         }
     }
-    fun isSupported() {
+    fun isSupported() : Boolean {
         sensorManager =  applicationContext.getSystemService(Context.SENSOR_SERVICE) as SensorManager
         return sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY) != null;
     }
