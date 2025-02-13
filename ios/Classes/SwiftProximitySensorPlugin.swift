@@ -54,7 +54,6 @@ public class SwiftProximitySensorPlugin: NSObject, FlutterPlugin
     }
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        log(call.method)
         switch call.method {
         case "isSupported":
             isSupported(result)
