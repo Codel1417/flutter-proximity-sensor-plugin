@@ -53,12 +53,16 @@ public class SwiftProximitySensorPlugin: NSObject, FlutterPlugin
         registrar.addMethodCallDelegate(instance, channel: methodChannel)
     }
 
-    public func handle(call: FlutterMethodCall, result: @escaping FlutterResult) {
-        guard call.method == "isSupported" else {
+    public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+        log(call.method)
+        switch call.method {
+        case "isSupported":
+            isSupported(result)
+        default:
             result(FlutterMethodNotImplemented)
-            return
         }
-        if call.method == "isSupported"{
+    }
+    private func isSupported(_ result: @escaping FlutterResult){
             // On IOS, to detect if the proximity sensor is supported, you try to enable it.
             // the value will stay false if it is unsupported. Example:
             let device =  UIDevice.current
@@ -66,12 +70,12 @@ public class SwiftProximitySensorPlugin: NSObject, FlutterPlugin
                 result(true)
             } else {
                 device.isProximityMonitoringEnabled = true
-                result(device.isProximityMonitoringEnabled)
-                if (device.isProximityMonitoringEnabled) {
+                result(device.isProximityMonitoringEnabled == true)
+
+                if (device.isProximityMonitoringEnabled == true) {
                     device.isProximityMonitoringEnabled = false
                 }
             }
-        }
     }
 }
 
